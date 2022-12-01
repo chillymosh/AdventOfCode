@@ -1,6 +1,6 @@
 from itertools import groupby
 
-with open("AdventOfCode2022/day1/data.txt", "r") as f:
+with open("AdventOfCode2022/day1/input.txt", "r") as f:
     data = [line.strip() for line in f]
 
 res = sorted([sum(int(d) for d in sub)for ele, sub in groupby(data, key = bool) if ele])
