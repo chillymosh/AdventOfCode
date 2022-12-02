@@ -75,8 +75,8 @@ def part1a(data: list[list[str]]) -> int:
 def part2a(data: list[list[str]]) -> int:
     choice = {(o, c1): c2 for (c1, c2), o in OUTCOMES.items()}
     def outcome(h: list[str]) -> int:
-        s, o = Shape.convert(h[0]), Result.convert(h[1])
-        return o.value + choice[o, s].value
+        s, r = Shape.convert(h[0]), Result.convert(h[1])
+        return r.value + choice[r, s].value
 
     return sum(outcome(h) for h in data)
 
