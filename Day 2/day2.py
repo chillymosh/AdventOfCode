@@ -77,7 +77,6 @@ def part2a(data: list[list[str]]) -> int:
     def outcome(h: list[str]) -> int:
         s, r = Shape.convert(h[0]), Result.convert(h[1])
         return r.value + choice[r, s].value
-
     return sum(outcome(h) for h in data)
 
 # For some unreadable ord nonsense
