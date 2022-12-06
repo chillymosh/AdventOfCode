@@ -62,6 +62,7 @@ def part2(h: list[str]) -> int:
     choice = {(o, c1): c2 for (c1, c2), o in OUTCOMES.items()}
     return choice[(res, p1)].value + res.value
 
+
 print(sum(part1(h) for h in data))
 print(sum(part2(h) for h in data))
 
@@ -70,17 +71,25 @@ def part1a(data: list[list[str]]) -> int:
     def outcome(h: list[str]) -> int:
         p1, p2 = map(Shape.convert, h)
         return p2.value + OUTCOMES[p1, p2].value
+
     return sum(outcome(h) for h in data)
+
 
 def part2a(data: list[list[str]]) -> int:
     choice = {(o, c1): c2 for (c1, c2), o in OUTCOMES.items()}
+
     def outcome(h: list[str]) -> int:
         s, r = Shape.convert(h[0]), Result.convert(h[1])
         return r.value + choice[r, s].value
+
     return sum(outcome(h) for h in data)
 
+
 # For some unreadable ord nonsense
-p=print
-d=[(ord((c:=m.split(" "))[0])-65,ord(c[1][0])-88) for m in open("AdventOfCode2022/day2/input.txt", "r").readlines()]
-p(sum(1+b+3*((b-a+1)%3) for a,b in d))
-p(sum(3*b+(1+(a+b+2)%3) for a,b in d))
+p = print
+d = [
+    (ord((c := m.split(" "))[0]) - 65, ord(c[1][0]) - 88)
+    for m in open("AdventOfCode2022/day2/input.txt", "r").readlines()
+]
+p(sum(1 + b + 3 * ((b - a + 1) % 3) for a, b in d))
+p(sum(3 * b + (1 + (a + b + 2) % 3) for a, b in d))

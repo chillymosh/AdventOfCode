@@ -11,7 +11,7 @@ with open("AdventOfCode2022/day5/input.txt", "r") as f:
         for i in range(qty, 0, -1):
             p2[to_stack - 1].append(p2[from_stack - 1].pop(-i))
     # Part 1
-    print(''.join([s[-1] for s in p1]))
+    print("".join([s[-1] for s in p1]))
 
-    #Part 2
-    print(''.join([s[-1] for s in p2]))
+    # Part 2
+    print("".join([s[-1] for s in p2]))

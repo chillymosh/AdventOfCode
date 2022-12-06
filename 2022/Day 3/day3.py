@@ -3,6 +3,7 @@ with open("AdventOfCode2022/day3/input.txt", "r") as f:
 
 # No Imports
 
+
 def split_half(r: str) -> tuple[str, str]:
     half = len(r) // 2
     return r[:half], r[half:]
@@ -10,6 +11,7 @@ def split_half(r: str) -> tuple[str, str]:
 
 def calc_score(l: str) -> int:
     return ord(l) - 38 if l.isupper() else ord(l) - 96
+
 
 # Part 1
 p1_total = 0
