@@ -35,3 +35,16 @@ p1 = [data[i : i + 4] for i in range(len(data) - 2)]
 print(parse_list(p1))
 p2 = [data[i : i + 14] for i in range(len(data) - 2)]
 print(parse_list(p2, 14))
+
+# Or a single function
+
+
+def single_func(data: str, window_size: int = 4) -> int | None:
+    for s in range(len(data)):
+        marker = data[s : s + window_size]
+        if len(set(marker)) == window_size:
+            return s + window_size
+
+
+print(single_func(data))
+print(single_func(data, 14))
