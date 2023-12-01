@@ -1,3 +1,16 @@
+let word_to_num = function
+  | "zero" -> "0"
+  | "one" -> "1"
+  | "two" -> "2"
+  | "three" -> "3"
+  | "four" -> "4"
+  | "five" -> "5"
+  | "six" -> "6"
+  | "seven" -> "7"
+  | "eight" -> "8"
+  | "nine" -> "9"
+  | s -> s 
+
 let extract_first_last_numeric line =
   let length = String.length line in
   let rec find_digit is_forward index =
@@ -29,19 +42,19 @@ let replace_extract line =
   extract_first_last_numeric replaced_line
 
 
-  let process_file_part1 filename =
-    let in_channel = open_in filename in
-    let rec loop sum =
-      match input_line in_channel with
-      | line ->
-        let num_val = extract_first_last_numeric line in
-        let num = int_of_string num_val in
-        loop (sum + num)
-      | exception End_of_file ->
-        close_in in_channel;
-        sum
-    in
-    loop 0
+let process_file_part1 filename =
+  let input_data = open_in filename in
+  let rec loop sum =
+    match input_line input_data with
+    | line ->
+      let num_val = extract_first_last_numeric line in
+      let num = int_of_string num_val in
+      loop (sum + num)
+    | exception End_of_file ->
+      close_in input_data;
+      sum
+  in
+  loop 0
 
 let process_file_part2 filename =
   let in_channel = open_in filename in
@@ -56,3 +69,13 @@ let process_file_part2 filename =
       sum
   in
   loop 0
+
+
+let () =
+  if Array.length Sys.argv < 2 then
+    Printf.eprintf "Usage: %s <filename>\n" Sys.argv.(0)
+  else
+    let filename = Sys.argv.(1) in
+    let total_part1 = process_file_part1 filename in
+    let total_part2 = process_file_part2 filename in
+    Printf.printf "Part 1 Total: %d\n Part 2 Total: %d\n" total_part1 total_part2
