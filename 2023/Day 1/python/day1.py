@@ -17,6 +17,17 @@ num_words_to_digits = {
     "nine": "9",
 }
 
+r1, r2 = 0, 0
+for row in data:
+    p1 = {e : x for e, x in enumerate(row) if x.isdigit()}
+    p2 = {e : v for e, _ in enumerate(row) for k, v in num_words_to_digits.items() if row[e:].startswith(k)}
+    p2 = {**p1, **p2}
+    r1 += int(p1[min(p1)] + p1[max(p1)])
+    r2 += int(p2[min(p2)] + p2[max(p2)])
+print(f"p1: {r1}, p2: {r2}")
+
+
+# Alternatives
 
 def replace_words_with_digits(line: str):
     result = ""
@@ -44,7 +55,6 @@ p2 = sum(
 )
 print(p2)
 
-# Alternatives
 
 p1_a = sum(
     int((next((i for i in l if i.isdigit()), "0") + next((i for i in reversed(l) if i.isdigit()), "0"))) for l in data
