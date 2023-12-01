@@ -34,22 +34,21 @@ def replace_words_with_digits(line: str):
 
 processed_data = [replace_words_with_digits(l) for l in data]
 
-p1 = sum(int("".join(i for i in l if i.isdigit())[0] + "".join(i for i in l if i.isdigit())[-1]) for l in data)
-print(p1)
-
-p2 = sum(
-    int("".join(i for i in l if i.isdigit())[0] + "".join(i for i in l if i.isdigit())[-1]) for l in processed_data
-)
-print(p2)
-
-
-# Alternative solutions
 p1_a = sum(
     int((next((i for i in l if i.isdigit()), "0") + next((i for i in reversed(l) if i.isdigit()), "0"))) for l in data
 )
 p2_a = sum(
     int((next((i for i in l if i.isdigit()), "0") + next((i for i in reversed(l) if i.isdigit()), "0")))
     for l in processed_data
+)
+
+
+
+# Alternative solutions
+p1_a = sum(int("".join(i for i in l if i.isdigit())[0] + "".join(i for i in l if i.isdigit())[-1]) for l in data)
+
+p2_a = sum(
+    int("".join(i for i in l if i.isdigit())[0] + "".join(i for i in l if i.isdigit())[-1]) for l in processed_data
 )
 
 # Compact version
