@@ -78,4 +78,4 @@ let () =
     let filename = Sys.argv.(1) in
     let total_part1 = process_file_part1 filename in
     let total_part2 = process_file_part2 filename in
-    Printf.printf "Part 1 Total: %d\n Part 2 Total: %d\n" total_part1 total_part2
+    Printf.printf "Part 1 Total: %d\nPart 2 Total: %d\n" total_part1 total_part2
