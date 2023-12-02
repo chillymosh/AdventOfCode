@@ -13,7 +13,7 @@ def is_game_possible(game: str) -> bool:
             return False
     return True
 
-def total_power_of_cubes():
+def total_power_of_cubes() -> int:
     total_power = 0
     for game in data:
         min_cubes = {colour: 0 for colour in cube_limits}
@@ -34,7 +34,7 @@ print(p1, p2)
 
 # All in one version
 
-def all_in_one():
+def all_in_one() -> tuple[int, int]:
     sum_of_possible_game_ids = 0
     total_power = 0
 
