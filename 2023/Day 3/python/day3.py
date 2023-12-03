@@ -46,7 +46,7 @@ def p1(parts: list[tuple[str, list[int]]]) -> int:
 
 
 def p2(parts: list[tuple[str, list[int]]]) -> int:
-    return sum(math.prod(part[1]) for part in parts if part[0] == "*" and len(part[1]) == 2)
+    return sum(math.prod(part[1]) for part in parts if len(part[1]) == 2)
 
 schematic = [list(line) for line in data]
 parts = find_parts(schematic)
