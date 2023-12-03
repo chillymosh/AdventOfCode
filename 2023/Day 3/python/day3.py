@@ -58,53 +58,57 @@ print(p2(parts))
 
 # I did stumble across someone else's which is kinda neat
 
-# import sys
-# import re
+
+print(sum(int(l[j:k])
+    for i,l in enumerate(data) 
+    for j in range(len(l)-1)
+    for k in range(j,j+4)
+    if(1-l[j-1:k].isdigit())*l[j:k].isdigit()*(k>=len(l)or 1-l[k].isdigit())*
+      any(c not in"1234567890.\n"for x in data[max(0,i-1):i+2]for c in x[max(0,j-1):k+1])
+))
 
 
-# def flatten_list(xss):
-#     return [x for xs in xss for x in xs]
+print(sum(len(q:=[int(m[x:k])
+      for m in data[max(0,i-1):i+2]
+      for x in range(max(0,j-3),j+2) 
+      for k in range(max(x,j),x+4)
+      if((k>=len(m))or 1-m[k].isdigit())*m[x:k].isdigit()*((x<1)or 1-m[x-1].isdigit())
+     ])==2 and q[0]*q[1]
+    for i,l in enumerate(data)
+    for j in range(len(l)-1)
+    if l[j] == "*"
+))
 
-# def is_symbol(xy):
-#     return xy in diagram and not diagram[xy].isdigit() and diagram[xy] != '.' 
+# Another from a friend group
 
-# def adjecents8(xy):
-#     (x, y) = xy
-#     return [(x+1, y), (x-1, y), (x, y+1), 
-#             (x, y-1), (x+1, y+1), 
-#             (x-1, y-1), (x-1, y+1), (x+1, y-1)]
-
-# def parse_numbers(line, y): # return type: tuple(value, list[xy])
-#     acc = 0
-#     xys = []
-
-#     for x, c in enumerate(line):
-#         if c.isdigit():
-#             xys.append((x, y))
-#             acc = 10 * acc + int(c)
-#         else:
-#             yield(acc, xys)
-#             acc = 0
-#             xys = []
-
-#     if acc:
-#         yield(acc, xys)
-
-# def is_part(number):
-#     _, xys = number
-#     return any(map(is_symbol, flatten_list(map(adjecents8, xys))))
-
-# ## PART 1
-# input_lines = open(sys.argv[1]).readlines()
-# diagram = { (x,y): c for y, line in enumerate(input_lines) for x, c in enumerate(line.strip()) }
-# numbers = flatten_list(parse_numbers(line, y) for y, line in enumerate(input_lines))
-# parts = [number for number in numbers if is_part(number)]
-
-# print(f'1: {sum(val for val, _ in parts)}')
+import re
+from collections import defaultdict
 
 
-# ## PART 2
-# stars = [xy for xy, c in diagram.items() if c == '*']
-# adj_parts_vals = [ [val for val, part_xys in parts if set(part_xys) & set(adjecents8(star))] for star in stars ]
+def p1_a():
+    ans = 0
+    for i, line in enumerate(data):
+        for m in re.finditer(r"\d+", line):
+            idxs = [(i, m.start() - 1), (i, m.end())]
+            idxs += [(i - 1, j) for j in range(m.start() - 1, m.end() + 1)]
+            idxs += [(i + 1, j) for j in range(m.start() - 1, m.end() + 1)]
+            count = sum(0 <= a < len(data) and 0 <= b < len(data[a]) and data[a][b] != "." for a, b in idxs)
+            if count > 0:
+                ans += int(m.group())
+    return ans
 
-# print(f'2: {sum(v[0] * v[1] for v in adj_parts_vals if len(v) == 2)}')
+
+def p2_a():
+    adj = defaultdict(list)
+    for i, line in enumerate(data):
+        for m in re.finditer(r"\d+", line):
+            idxs = [(i, m.start() - 1), (i, m.end())]
+            idxs += [(i - 1, j) for j in range(m.start() - 1, m.end() + 1)]
+            idxs += [(i + 1, j) for j in range(m.start() - 1, m.end() + 1)]
+            for a, b in idxs:
+                if 0 <= a < len(data) and 0 <= b < len(data[a]) and data[a][b] != ".":
+                    adj[a, b].append(m.group())
+    return sum(int(x[0]) * int(x[1]) for x in adj.values() if len(x) == 2)
+
+print(p1_a())
+print(p2_a())
