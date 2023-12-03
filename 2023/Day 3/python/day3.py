@@ -1,5 +1,4 @@
 import math
-import itertools
 
 with open("input.txt", "r") as f:
     data = [line.strip() for line in f]
@@ -20,7 +19,7 @@ def full_number(x: int, y: int, schematic: list[list[str]], searched: list[tuple
 
 def adjacent_numbers(i: int, j: int, schematic: list[list[str]], searched: list[tuple[int, int, int]]) -> list[int]:
     numbers: list[int] = []
-    for dx, dy in itertools.product(range(-1, 2), range(-1, 2)):
+    for dx, dy in ((-1, 0), (-1, -1), (-1, 1), (0, -1), (0, 1), (1, 0), (1, -1), (1, 1)):
         x, y = i + dx, j + dy
         if 0 <= x < len(schematic) and 0 <= y < len(schematic[x]) and schematic[x][y].isdigit():
             number = full_number(x, y, schematic, searched)
