@@ -44,7 +44,6 @@ function day2($data, $cube_limits) {
     return array($sum_of_possible_game_ids, $total_power);
 }
 
-// Example usage
 $filename = "input.txt";
 $data = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 $cube_limits = array("red" => 12, "green" => 13, "blue" => 14);
