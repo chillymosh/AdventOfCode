@@ -57,4 +57,34 @@ my $p1 = calculateTotalPoints(\%cards, \%matches);
 print "$p1\n";
 
 my $p2 = calculateTotalScratchcards(\%cards, \%matches);
-print "\n$p2\n";
+print "$p2\n";
+
+
+# Alternate way using Mysty's Python version as a base
+
+my $p1_total = 0;
+my $p2_total = 0;
+my @thing = (1) x scalar @lines;
+
+foreach my $i (0 .. $#lines) {
+    my ($numbers_s, $winning_s) = split / \| /, (split /: /, $lines[$i])[1];
+
+    my @numbers = grep { /^\d+$/ } split / /, $numbers_s;
+    my @winning = grep { /^\d+$/ } split / /, $winning_s;
+    my @matching = grep { my $num = $_; grep { $_ == $num } @winning } @numbers;
+
+    # PART ONE
+    my $match_count = scalar @matching;
+    $p1_total += $match_count ? 2 ** ($match_count - 1) : 0;
+
+    # PART TWO
+    for my $j (1 .. $match_count) {
+        if ($i + $j < scalar @lines) {
+            $thing[$i + $j] += $thing[$i];
+        }
+    }
+}
+
+$p2_total += $_ for @thing;
+print "PART ONE TOTAL: $p1_total\n";
+print "PART TWO TOTAL: $p2_total\n";
