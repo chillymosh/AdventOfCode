@@ -51,4 +51,33 @@ echo $p1 . "\n";
 $p2 = calculateTotalScratchcards($cards, $matches);
 echo $p2 . "\n";
 
+// Alternate way using Mysty's Python version as a base
+
+$p1_total = 0;
+$p2_total = 0;
+$thing = array_fill(0, count($lines), 1);
+
+foreach ($lines as $i => $r) {
+    list($numbers_s, $winning_s) = explode(" | ", explode(": ", $r)[1]);
+
+    $numbers = array_map('intval', array_filter(explode(" ", $numbers_s), 'ctype_digit'));
+    $winning = array_map('intval', array_filter(explode(" ", $winning_s), 'ctype_digit'));
+    $matching = array_intersect($numbers, $winning);
+
+    // PART ONE
+    $p1_total += count($matching) > 0 ? 2 ** (count($matching) - 1) : 0;
+
+    // PART TWO
+    $match_count = count($matching);
+    for ($j = 1; $j <= $match_count; $j++) {
+        if ($i + $j < count($lines)) {
+            $thing[$i + $j] += $thing[$i];
+        }
+    }
+}
+
+$p2_total = array_sum($thing);
+echo "PART ONE TOTAL: $p1_total\n";
+echo "PART TWO TOTAL: $p2_total\n";
+
 ?>  
