@@ -5,15 +5,15 @@ def calculate_total_points(cards: dict[int, dict[str, set[str]]], matches: dict[
     return sum(2 ** (matches[i] - 1) for i in cards if matches[i] > 0)
 
 def calculate_total_scratchcards(cards: dict[int, dict[str, set[str]]], matches: dict[int, int]) -> int:
-    instances = {i: 1 for i in range(1, len(cards) + 1)}
-    for i in range(1, len(cards)):
+    instances = {i: 1 for i in range(len(cards))}
+    for i in range(len(cards)):
         for j in range(i + 1, min(len(cards) + 1, i + 1 + matches[i])):
             instances[j] += instances[i]
     return sum(instances.values())
 
 cards = {i: {"winning": set(n.split("|")[0].split()[2:]),
              "mine": set(n.split("|")[1].split())}
-         for i, n in enumerate(data, start=1)}
+         for i, n in enumerate(data)}
 
 matches: dict[int, int] = {i: len(cards[i]["winning"].intersection(cards[i]["mine"])) for i in cards}
 
