@@ -6,10 +6,17 @@ let parse_numbers string = string
   |> List.map int_of_string
 
 let print_lines = List.iter print_endline
-let print_ints = List.iter (fun (x) -> Printf.printf "%d, " x)
+let print_ints ints = let () = List.iter (fun (x) -> Printf.printf "%d, " x) ints in
+  Printf.printf "\n"
+let print_floats floats = let () = List.iter (fun (x) -> Printf.printf "%f, " x) floats in
+  Printf.printf "\n"
 let print_int_pairs pairs = 
   let () = List.iter (fun (x) -> Printf.printf "(%d,%d) " (fst x) (snd x)) pairs in 
-  print_newline ()
+  Printf.printf "\n"
+
+
+let rec gcd a (b:int) = if a == 0 then b else gcd (b mod a) a
+let lcm a b = a * b / (gcd a b)
 
 module Range = struct
   type t = int * int
