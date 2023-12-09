@@ -70,13 +70,42 @@ print(p1, p2)
 
 
 # golfed
-def solve(seq):
-    s = [seq]
-    while any(s[-1]):
-        s.append([s[-1][i+1] - s[-1][i] for i in range(len(s[-1]) - 1)])
-    for i in range(len(s) - 2, -1, -1):
-        s[i].append(s[i][-1] + s[i+1][-1])
-    return s[0][-1]
 
-sequences = [list(map(int, line.split())) for line in open("input.txt").read().strip().split("\n")]
-print(f"Part One: {sum(solve(s) for s in sequences)}, Part Two: {sum(solve(s[::-1]) for s in sequences)}")
+# def solve(seq):
+#     s = [seq]
+#     while any(s[-1]):
+#         s.append([s[-1][i+1] - s[-1][i] for i in range(len(s[-1]) - 1)])
+#     for i in range(len(s) - 2, -1, -1):
+#         s[i].append(s[i][-1] + s[i+1][-1])
+#     return s[0][-1]
+
+# sequences = [list(map(int, line.split())) for line in open("input.txt").read().strip().split("\n")]
+# print(f"Part One: {sum(solve(s) for s in sequences)}, Part Two: {sum(solve(s[::-1]) for s in sequences)}")
+
+
+# L =  open("input.txt").read().strip().split("\n")
+
+# def f(xs, p2):
+#     d = [xs[i+1]-xs[i] for i in range(len(xs)-1)]
+#     if all(y==0 for y in d):
+#         return xs[0 if part2 else -1]
+#     else:
+#         return xs[0 if part2 else -1] + (-1 if part2 else 1)*f(d, p2)
+
+# for p in [False, True]:
+#     a = 0
+#     for line in L:
+#         xs = [int(x) for x in line.split()]
+#         a += f(xs, p)
+#     print(a)
+
+
+# def f(xs, p2):
+#     d = [j-i for i, j in zip(xs, xs[1:])]
+#     return xs[0 if p2 else -1] if all(y==0 for y in d) else xs[0 if p2 else -1] + (-1 if p2 else 1)*f(d, p2)
+
+# f = lambda xs, p2: xs[0 if p2 else -1] if all(j-i == 0 for i, j in zip(xs, xs[1:])) else xs[0 if p2 else -1] + (-1 if p2 else 1) * f([j-i for i, j in zip(xs, xs[1:])], p2)
+# print(*(sum(f(xs, p) for xs in [list(map(int, line.split())) for line in open("input.txt").read().strip().split("\n")]) for p in [False, True]), sep='\n')
+
+# madness
+s = lambda l:l[-1]+s([*map(lambda x,y:y-x,l,l[1:])])if any(l)else 0;print(*(sum(s(l[::d])for l in [[*map(int,l.split())] for l in open("input.txt")])for d in (1,-1)))
