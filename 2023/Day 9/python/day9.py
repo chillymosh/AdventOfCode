@@ -12,11 +12,11 @@ def solve_sequence(seq: list[int]) -> int:
     return sum(seq[-1] for seq in sequences)
 
 def solve_from_file(filename: str) -> tuple[int, int]:
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-        part_one_sum = sum(solve_sequence(list(map(int, line.split()))) for line in lines)
-        part_two_sum = sum(solve_sequence(list(map(int, line.split()))[::-1]) for line in lines)
-    return part_one_sum, part_two_sum
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+        p1 = sum(solve_sequence(list(map(int, line.split()))) for line in lines)
+        p2 = sum(solve_sequence(list(map(int, line.split()))[::-1]) for line in lines)
+    return p1, p2
 
 
 p1, p2 = solve_from_file("input.txt")
@@ -30,20 +30,20 @@ class SequenceSolver:
         self.sequence = sequence
         self.sequences = [sequence]
 
-    def build_sequences(self):
+    def build_sequences(self) -> None:
         while any(d != 0 for d in self.sequences[-1]):
             self.sequences.append([self.sequences[-1][i+1] - self.sequences[-1][i] for i in range(len(self.sequences[-1]) - 1)])
 
-    def solve(self):
+    def solve(self) -> int:
         self.build_sequences()
         return sum(seq[-1] for seq in reversed(self.sequences))
 
-def solve_from_file(filename: str):
-    with open(filename, "r") as file:
-        lines = file.readlines()
-        part_one_sum = sum(SequenceSolver(list(map(int, line.split()))).solve() for line in lines)
-        part_two_sum = sum(SequenceSolver(list(map(int, line.split()))[::-1]).solve() for line in lines)
-    return part_one_sum, part_two_sum
+def solve_from_file(filename: str) -> tuple[int, int]:
+    with open(filename, "r") as f:
+        lines = f.readlines()
+        p1 = sum(SequenceSolver(list(map(int, line.split()))).solve() for line in lines)
+        p2 = sum(SequenceSolver(list(map(int, line.split()))[::-1]).solve() for line in lines)
+    return p1, p2
 
 p1, p2 = solve_from_file("input.txt")
 print(f"Part One Result: {p1}\nPart Two Result: {p2}")
