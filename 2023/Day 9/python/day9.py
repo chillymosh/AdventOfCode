@@ -55,15 +55,15 @@ f = open("input.txt").read().strip().split("\n")
 def solve(seq: list[list[int]]) -> int:
     i = 0
     while any(seq[-1]):
-        seq.append([seq[i][j+1] - seq[i][j] for j in range(len(seq[i]) -1)])
+        seq.append([seq[i][j + 1] - seq[i][j] for j in range(len(seq[i]) - 1)])
         i += 1
     for i in range(len(seq) - 2, -1, -1):
-        seq[i].append(seq[i][-1] + seq[i+1][-1])
+        seq[i].append(seq[i][-1] + seq[i + 1][-1])
     return seq[0][-1]
 
 p1 = p2 = 0
 for line in f:
     line = list(map(int, line.split()))
     p1 += solve([line])
-    p1 += solve([line[::-1]])
+    p2 += solve([line[::-1]])
 print(p1, p2)
