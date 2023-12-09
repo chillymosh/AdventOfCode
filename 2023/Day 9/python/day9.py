@@ -67,3 +67,16 @@ for line in f:
     p1 += solve([line])
     p2 += solve([line[::-1]])
 print(p1, p2)
+
+
+# golfed
+def solve(seq):
+    s = [seq]
+    while any(s[-1]):
+        s.append([s[-1][i+1] - s[-1][i] for i in range(len(s[-1]) - 1)])
+    for i in range(len(s) - 2, -1, -1):
+        s[i].append(s[i][-1] + s[i+1][-1])
+    return s[0][-1]
+
+sequences = [list(map(int, line.split())) for line in open("input.txt").read().strip().split("\n")]
+print(f"Part One: {sum(solve(s) for s in sequences)}, Part Two: {sum(solve(s[::-1]) for s in sequences)}")
