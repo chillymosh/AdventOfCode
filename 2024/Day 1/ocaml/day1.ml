@@ -48,6 +48,6 @@ let () =
   let file_path = "../input.txt" in
   let left, right = read_input file_path in
   let p1 = calculate_p1 left right in
-  Printf.printf "p1: %d\n" p1;
+  Printf.printf "%d\n" p1;
   let p2 = calculate_p2 left right in
-  Printf.printf "p2: %d\n" p2
+  Printf.printf "%d\n" p2
