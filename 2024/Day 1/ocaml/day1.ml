@@ -28,5 +28,5 @@ let calculate_p2 left right =
 let () =
   let file_path = "../input.txt" in
   let left, right = read_input file_path in
-  Printf.printf "p1: %d\n" (calculate_p1 left right);
-  Printf.printf "p2: %d\n" (calculate_p2 left right)
+  Printf.printf "%d\n" (calculate_p1 left right);
+  Printf.printf "%d\n" (calculate_p2 left right)
