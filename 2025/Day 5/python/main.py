@@ -15,8 +15,8 @@ with open(Path(__file__).parent.parent / "input.txt") as f:
         else:
             INTS.append(int(line))
 
-p1 = {v for v in INTS if any(a <= v <= b for a, b in RANGES)}
-print(len(p1))
+p1 = sum(any(start <= v <= end for start, end in RANGES) for v in INTS)
+print(p1)
         
 merged: list[list[int]] = []
 
