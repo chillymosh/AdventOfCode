@@ -7,7 +7,7 @@ block = list[tuple[str, ...]]
 
 w = max(map(len, data))
 blocks: list[block] = []
-cur: list[tuple[str, ...]] = []
+cur: block = []
 
 for col in zip(*[line.ljust(w) for line in data]):
     if all(c == " " for c in col):
@@ -22,7 +22,7 @@ if cur:
 def calculate(nums: list[int], op: str) -> int:
     return sum(nums) if op == "+" else prod(nums)
 
-def part1(blocks: list[list[tuple[str, ...]]]) -> int:
+def part1(blocks: list[block]) -> int:
     total = 0
     for block in blocks:
         rows = list(zip(*block))
@@ -31,7 +31,7 @@ def part1(blocks: list[list[tuple[str, ...]]]) -> int:
         total += calculate(nums, op)
     return total
 
-def part2(blocks: list[list[tuple[str, ...]]]) -> int:
+def part2(blocks: list[block]) -> int:
     total = 0
     for block in blocks:
         rows = list(zip(*block))
