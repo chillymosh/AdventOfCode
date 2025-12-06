@@ -6,11 +6,10 @@ data = Path(__file__).parent.parent.joinpath("input.txt").read_text().splitlines
 block = list[tuple[str, ...]]
 
 w = max(map(len, data))
-grid = [line.ljust(w) for line in data]
 blocks: list[block] = []
 cur: list[tuple[str, ...]] = []
 
-for col in zip(*grid):
+for col in zip(*[line.ljust(w) for line in data]):
     if all(c == " " for c in col):
         if cur: 
             blocks.append(cur)
@@ -20,30 +19,29 @@ for col in zip(*grid):
 if cur:
     blocks.append(cur)
 
-def part1(blocks: list[block]) -> int:
+def calculate(nums: list[int], op: str) -> int:
+    return sum(nums) if op == "+" else prod(nums)
+
+def part1(blocks: list[list[tuple[str, ...]]]) -> int:
     total = 0
     for block in blocks:
         rows = list(zip(*block))
         op = "+" if "+" in rows[-1] else "*"
         nums = [int("".join(r).strip()) for r in rows[:-1]]
-        total += sum(nums) if op == "+" else prod(nums)
+        total += calculate(nums, op)
     return total
 
-
-def part2(blocks: list[block]) -> int:
+def part2(blocks: list[list[tuple[str, ...]]]) -> int:
     total = 0
     for block in blocks:
         rows = list(zip(*block))
         op = "+" if "+" in rows[-1] else "*"
-        cols = list(zip(*rows[:-1]))
-        nums: list[int] = []
-        
-        for col in reversed(cols): 
-            s = "".join(d for d in col if d != " ")
-            if s:
-                nums.append(int(s))
-
-        total += sum(nums) if op == "+" else prod(nums) 
+        nums = [
+            int("".join(d for d in col if d != " "))
+            for col in reversed(list(zip(*rows[:-1])))
+            if any(d != " " for d in col)
+        ]
+        total += calculate(nums, op)
     return total
 
 print(part1(blocks))
