@@ -22,21 +22,15 @@ if cur:
 def calculate(nums: list[int], op: str) -> int:
     return sum(nums) if op == "+" else prod(nums)
 
-def part1(blocks: list[block]) -> int:
+def solve(blocks: list[block], part: int = 1) -> int:
     total = 0
     for block in blocks:
         rows = list(zip(*block))
         op = "+" if "+" in rows[-1] else "*"
-        nums = [int("".join(r).strip()) for r in rows[:-1]]
-        total += calculate(nums, op)
-    return total
-
-def part2(blocks: list[block]) -> int:
-    total = 0
-    for block in blocks:
-        rows = list(zip(*block))
-        op = "+" if "+" in rows[-1] else "*"
-        nums = [
+        if part == 1:
+            nums = [int("".join(r).strip()) for r in rows[:-1]]
+        else:
+            nums = [
             int("".join(d for d in col if d != " "))
             for col in reversed(list(zip(*rows[:-1])))
             if any(d != " " for d in col)
@@ -44,5 +38,6 @@ def part2(blocks: list[block]) -> int:
         total += calculate(nums, op)
     return total
 
-print(part1(blocks))
-print(part2(blocks))
+
+print(solve(blocks))
+print(solve(blocks, 2))
