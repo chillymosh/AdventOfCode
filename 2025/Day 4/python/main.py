@@ -2,8 +2,9 @@ import itertools
 from pathlib import Path
 from collections import deque
 
-with open(Path(__file__).parent.parent / "input.txt") as f:
-    data = [list(line.strip()) for line in f]
+path = Path(__file__).parent.parent / "input.txt"
+with path.open() as f:
+    data = [list(line.rstrip("\n")) for line in f]
 
 
 DIRECTIONS = [
@@ -11,7 +12,6 @@ DIRECTIONS = [
     (0, -1),           (0, 1),
     (1, -1),  (1, 0),  (1, 1),
 ]
-
 
 def total_removable_rolls(grid: list[list[str]]) -> int:
     rows, cols = len(grid), len(grid[0])

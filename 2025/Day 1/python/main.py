@@ -1,7 +1,6 @@
 from pathlib import Path
 
-with open(Path(__file__).parent.parent / "input.txt") as f:
-    data = [i.strip() for i in f.readlines()]
+data = Path(__file__).parent.parent.joinpath("input.txt").read_text().splitlines()
 
 dial_size = 100
 pos = 50

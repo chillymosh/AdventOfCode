@@ -3,7 +3,9 @@ from pathlib import Path
 RANGES: list[tuple[int, int]] = []
 INTS: list[int] = []
 
-with open(Path(__file__).parent.parent / "input.txt") as f:
+path = Path(__file__).parent.parent / "input.txt"
+
+with path.open() as f:
     for line in f:
         line = line.strip()
         if not line:

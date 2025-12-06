@@ -1,6 +1,6 @@
 from pathlib import Path
 
-data = Path(__file__).resolve().parent.parent.joinpath("input.txt").read_text()
+data = Path(__file__).parent.parent.joinpath("input.txt").read_text()
 
 p1 = p2 = 0
 
