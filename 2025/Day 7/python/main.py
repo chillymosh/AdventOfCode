@@ -5,11 +5,11 @@ data = Path(__file__).parent.parent.joinpath("input.txt").read_text().splitlines
 
 def solve(grid: list[str], part: int = 1) -> int:
     height, width = len(grid), len(grid[0])
-    start_row, start_col = 0, grid[0].index("S")
+    start_col = grid[0].index("S")
     beams = {start_col: 1}
     p1 = p2 = 0
 
-    for r in range(start_row + 1, height):
+    for r in range(1, height):
         new_beams: dict[int, int] = defaultdict(int)
 
         for c, ways in beams.items():
