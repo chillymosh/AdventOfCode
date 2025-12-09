@@ -17,7 +17,7 @@ def area(a: Coord , b: Coord) -> int:
 def part1(coords: list[Coord]) -> int: 
     return max(area(a, b) for a, b in itertools.combinations(coords, 2))
 
-def line(a: Coord, b: Coord) -> set[tuple[int, int]]:
+def line(a: Coord, b: Coord) -> set[Coord]:
     a1, a2 = min(a[0], b[0]), max(a[0], b[0])
     b1, b2 = min(a[1], b[1]), max(a[1], b[1])
     return set(itertools.product(range(a1, a2 + 1), range(b1, b2 + 1)))
